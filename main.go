@@ -35,5 +35,5 @@ func Handler(res http.ResponseWriter, req *http.Request) {
 
 // the main funtion starts our server on port 3000
 func main() {
-	http.ListenAndServe(":3000", http.HandlerFunc(Handler))
+	http.ListenAndServe(":80", http.HandlerFunc(Handler))
 }
