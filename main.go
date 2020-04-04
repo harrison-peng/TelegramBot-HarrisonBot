@@ -10,6 +10,7 @@ import (
 
 // Handler is called everytime telegram sends us a webhook event
 func Handler(res http.ResponseWriter, req *http.Request) {
+	fmt.Println(harrisonBot.APIURL)
 	// Decode the JSON response body
 	body := &harrisonBot.Update{}
 	if err := json.NewDecoder(req.Body).Decode(body); err != nil {

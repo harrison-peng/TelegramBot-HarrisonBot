@@ -2,23 +2,12 @@
 
 ## Settings
 
-### settings.go
+set the environment variable
 
-```go
-package harrisonbot
-
-const (
-    // Token is the token of the telegram bot
-    Token = ""
-    // APIURL is the api url of the telegram bot
-    APIURL = ""
-    // MongoDBUser is the user name of the mongo DB
-    MongoDBUser = ""
-    // MongoDBPassword is the password of the mongo DB
-    MongoDBPassword = ""
-    // MongoDBName is the DB name of the mongo DB
-    MongoDBName = ""
-    // MongoDBDomain is the domain name of the mongo DB
-    MongoDBDomain = ""
-)
+```bash
+export TELEGRAM_API_TOKEN={}
+export MONGO_DB_USER={}
+export MONGO_DB_PWD={}
+export MONGO_DB_NAME={}
+export MONGO_DB_DOMAIN={}
 ```

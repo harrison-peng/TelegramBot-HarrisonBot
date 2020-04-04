@@ -8,16 +8,16 @@ import (
 	"time"
 )
 
-const (
-	twseAPIURL    = "https://www.twse.com.tw/exchangeReport/"
-	mistwseAPIURL = "https://mis.twse.com.tw/stock/api/getStockInfo.jsp"
-)
+// const (
+// 	twseAPIURL    = "https://www.twse.com.tw/exchangeReport/"
+// 	mistwseAPIURL = "https://mis.twse.com.tw/stock/api/getStockInfo.jsp"
+// )
 
 func getPERatioReport(stockID string, date string) (PERatioReport, error) {
 	report := &ExchangeReport{}
 	// today := time.Now().Format("20060102")
 	// date := time.Now().AddDate(0, 0, -1).Format("20060102")
-	url := twseAPIURL + "BWIBBU?response=json&date=" + date + "&stockNo=" + stockID
+	url := TWSEAPIURL + "BWIBBU?response=json&date=" + date + "&stockNo=" + stockID
 
 	res, err := http.Get(url)
 	if err != nil {
@@ -64,7 +64,7 @@ func getPERatioReport(stockID string, date string) (PERatioReport, error) {
 
 func getStockPriceInfo(stockID string) (StockPriceInfo, error) {
 	resp := &StockPriceResponse{}
-	url := mistwseAPIURL + "?ex_ch=tse_" + stockID + ".tw"
+	url := MISTWSEAPIURL + "?ex_ch=tse_" + stockID + ".tw"
 	res, err := http.Get(url)
 	if err != nil {
 		return StockPriceInfo{}, err
@@ -104,7 +104,7 @@ func getStockPriceInfo(stockID string) (StockPriceInfo, error) {
 
 func getMonthAvgPrice(stockID string, date string) (string, error) {
 	report := &ExchangeReport{}
-	url := twseAPIURL + "STOCK_DAY_AVG?response=json&date=" + date + "&stockNo=" + stockID
+	url := TWSEAPIURL + "STOCK_DAY_AVG?response=json&date=" + date + "&stockNo=" + stockID
 
 	res, err := http.Get(url)
 	if err != nil {
