@@ -5,7 +5,7 @@
 ### settings.go
 
 ```go
-package main
+package harrisonbot
 
 const (
     // Token is the token of the telegram bot
