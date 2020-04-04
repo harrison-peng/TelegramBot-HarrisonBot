@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"os"
 
 	harrisonBot "github.com/hichyen1207/TelegramBot-HarrisonBot/src"
 )
@@ -35,5 +36,6 @@ func Handler(res http.ResponseWriter, req *http.Request) {
 
 // the main funtion starts our server on port 3000
 func main() {
-	http.ListenAndServe(":80", http.HandlerFunc(Handler))
+	port := os.Getenv("PORT")
+	http.ListenAndServe(":"+port, http.HandlerFunc(Handler))
 }
