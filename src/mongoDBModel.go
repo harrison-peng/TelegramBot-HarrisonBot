@@ -1,4 +1,4 @@
-package main
+package harrisonbot
 
 // User is the user object of the mongo DB
 type User struct {

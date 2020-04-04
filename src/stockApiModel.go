@@ -1,4 +1,4 @@
-package main
+package harrisonbot
 
 // ExchangeReport is the API response of exchange report
 // https://www.twse.com.tw/exchangeReport/BWIBBU?response=json&date={date}&stockNo={stockNum}

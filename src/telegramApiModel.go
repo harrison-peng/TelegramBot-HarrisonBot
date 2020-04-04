@@ -1,4 +1,4 @@
-package main
+package harrisonbot
 
 // Update is the result of Update
 // https://core.telegram.org/bots/api#update
