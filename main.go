@@ -260,7 +260,7 @@ func sendMyStockKeyboardMessage(chatID int) error {
 		InlineKeyboard: &[][]InlineKeyboardButton{
 			[]InlineKeyboardButton{
 				InlineKeyboardButton{
-					Text:         "Price Informaiton",
+					Text:         "Price Information",
 					CallbackData: &priceCallbackData,
 				},
 			},
@@ -273,7 +273,7 @@ func sendMyStockKeyboardMessage(chatID int) error {
 		},
 	}
 	// fmt.Printf("%+v\n", *replyMarkup)
-	if err := sendMessage(chatID, "Choose the infomation:", "", *replyMarkup); err != nil {
+	if err := sendMessage(chatID, "Choose the information:", "", *replyMarkup); err != nil {
 		return err
 	}
 	return nil
