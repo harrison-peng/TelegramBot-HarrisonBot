@@ -1,0 +1,129 @@
+# github.com/PuerkitoBio/goquery v1.5.1
+## explicit
+github.com/PuerkitoBio/goquery
+# github.com/andybalholm/cascadia v1.1.0
+github.com/andybalholm/cascadia
+# github.com/antchfx/htmlquery v1.2.2
+## explicit
+github.com/antchfx/htmlquery
+# github.com/antchfx/xmlquery v1.2.3
+## explicit
+github.com/antchfx/xmlquery
+# github.com/antchfx/xpath v1.1.4
+## explicit
+github.com/antchfx/xpath
+# github.com/go-stack/stack v1.8.0
+github.com/go-stack/stack
+# github.com/gobwas/glob v0.2.3
+## explicit
+github.com/gobwas/glob
+github.com/gobwas/glob/compiler
+github.com/gobwas/glob/match
+github.com/gobwas/glob/syntax
+github.com/gobwas/glob/syntax/ast
+github.com/gobwas/glob/syntax/lexer
+github.com/gobwas/glob/util/runes
+github.com/gobwas/glob/util/strings
+# github.com/gocolly/colly v1.2.0
+## explicit
+github.com/gocolly/colly
+github.com/gocolly/colly/debug
+github.com/gocolly/colly/storage
+# github.com/golang/groupcache v0.0.0-20200121045136-8c9f03a8e57e
+## explicit
+github.com/golang/groupcache/lru
+# github.com/golang/protobuf v1.3.1
+github.com/golang/protobuf/proto
+# github.com/golang/snappy v0.0.1
+github.com/golang/snappy
+# github.com/kennygrant/sanitize v1.2.4
+## explicit
+github.com/kennygrant/sanitize
+# github.com/klauspost/compress v1.9.5
+github.com/klauspost/compress/fse
+github.com/klauspost/compress/huff0
+github.com/klauspost/compress/snappy
+github.com/klauspost/compress/zstd
+github.com/klauspost/compress/zstd/internal/xxhash
+# github.com/pkg/errors v0.8.1
+github.com/pkg/errors
+# github.com/saintfish/chardet v0.0.0-20120816061221-3af4cd4741ca
+## explicit
+github.com/saintfish/chardet
+# github.com/temoto/robotstxt v1.1.1
+## explicit
+github.com/temoto/robotstxt
+# github.com/xdg/scram v0.0.0-20180814205039-7eeb5667e42c
+github.com/xdg/scram
+# github.com/xdg/stringprep v0.0.0-20180714160509-73f8eece6fdc
+github.com/xdg/stringprep
+# go.mongodb.org/mongo-driver v1.3.1
+## explicit
+go.mongodb.org/mongo-driver/bson
+go.mongodb.org/mongo-driver/bson/bsoncodec
+go.mongodb.org/mongo-driver/bson/bsonoptions
+go.mongodb.org/mongo-driver/bson/bsonrw
+go.mongodb.org/mongo-driver/bson/bsontype
+go.mongodb.org/mongo-driver/bson/primitive
+go.mongodb.org/mongo-driver/event
+go.mongodb.org/mongo-driver/internal
+go.mongodb.org/mongo-driver/mongo
+go.mongodb.org/mongo-driver/mongo/options
+go.mongodb.org/mongo-driver/mongo/readconcern
+go.mongodb.org/mongo-driver/mongo/readpref
+go.mongodb.org/mongo-driver/mongo/writeconcern
+go.mongodb.org/mongo-driver/tag
+go.mongodb.org/mongo-driver/version
+go.mongodb.org/mongo-driver/x/bsonx
+go.mongodb.org/mongo-driver/x/bsonx/bsoncore
+go.mongodb.org/mongo-driver/x/mongo/driver
+go.mongodb.org/mongo-driver/x/mongo/driver/address
+go.mongodb.org/mongo-driver/x/mongo/driver/auth
+go.mongodb.org/mongo-driver/x/mongo/driver/auth/internal/gssapi
+go.mongodb.org/mongo-driver/x/mongo/driver/connstring
+go.mongodb.org/mongo-driver/x/mongo/driver/description
+go.mongodb.org/mongo-driver/x/mongo/driver/dns
+go.mongodb.org/mongo-driver/x/mongo/driver/mongocrypt
+go.mongodb.org/mongo-driver/x/mongo/driver/mongocrypt/options
+go.mongodb.org/mongo-driver/x/mongo/driver/operation
+go.mongodb.org/mongo-driver/x/mongo/driver/session
+go.mongodb.org/mongo-driver/x/mongo/driver/topology
+go.mongodb.org/mongo-driver/x/mongo/driver/uuid
+go.mongodb.org/mongo-driver/x/mongo/driver/wiremessage
+# golang.org/x/crypto v0.0.0-20190530122614-20be4c3c3ed5
+golang.org/x/crypto/pbkdf2
+# golang.org/x/net v0.0.0-20200202094626-16171245cfb2
+golang.org/x/net/context
+golang.org/x/net/html
+golang.org/x/net/html/atom
+golang.org/x/net/html/charset
+# golang.org/x/sync v0.0.0-20190423024810-112230192c58
+golang.org/x/sync/semaphore
+# golang.org/x/text v0.3.2
+golang.org/x/text/encoding
+golang.org/x/text/encoding/charmap
+golang.org/x/text/encoding/htmlindex
+golang.org/x/text/encoding/internal
+golang.org/x/text/encoding/internal/identifier
+golang.org/x/text/encoding/japanese
+golang.org/x/text/encoding/korean
+golang.org/x/text/encoding/simplifiedchinese
+golang.org/x/text/encoding/traditionalchinese
+golang.org/x/text/encoding/unicode
+golang.org/x/text/internal/language
+golang.org/x/text/internal/language/compact
+golang.org/x/text/internal/tag
+golang.org/x/text/internal/utf8internal
+golang.org/x/text/language
+golang.org/x/text/runes
+golang.org/x/text/transform
+golang.org/x/text/unicode/norm
+# google.golang.org/appengine v1.6.5
+## explicit
+google.golang.org/appengine/internal
+google.golang.org/appengine/internal/base
+google.golang.org/appengine/internal/datastore
+google.golang.org/appengine/internal/log
+google.golang.org/appengine/internal/remote_api
+google.golang.org/appengine/internal/urlfetch
+google.golang.org/appengine/urlfetch
