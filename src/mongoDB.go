@@ -216,6 +216,6 @@ func insertStockInfoToDB(infoList []StockInfo) error {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Printf("inserted documents with IDs %v\n", res.InsertedIDs)
+	fmt.Printf("inserted documents with ID %v\n", res.InsertedIDs)
 	return nil
 }
