@@ -8,3 +8,12 @@ type User struct {
 	StockList []string `bson:"StockList"`
 	Session   string   `bson:"session"`
 }
+
+// Stock is the stock info object of the mongo DB
+type Stock struct {
+	STockID   string `bson:"_id"`
+	Name      string `bson:"name"`
+	Type      string `bson:"type"`
+	StockType string `bson:"stockType"`
+	Publisher string `bson:"publisher"`
+}

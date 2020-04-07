@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"strconv"
 
 	harrisonBot "github.com/hichyen1207/TelegramBot-HarrisonBot/src"
 )
@@ -26,6 +27,11 @@ func Handler(res http.ResponseWriter, req *http.Request) {
 			return
 		}
 	} else {
+		if err := harrisonBot.CheckUser(strconv.Itoa(body.Message.Chat.ID), body.Message.From.FirstName, body.Message.From.LastName); err != nil {
+			fmt.Println("Error in checking user: ", err)
+			return
+		}
+
 		// Handle text message
 		if err := harrisonBot.HandleMessage(body.Message); err != nil {
 			fmt.Println("Error in handling message: ", err)
@@ -36,6 +42,12 @@ func Handler(res http.ResponseWriter, req *http.Request) {
 
 // the main funtion starts our server on port 3000
 func main() {
-	port := os.Getenv("PORT")
+	var port string
+	if os.Getenv("PORT") == "" {
+		port = "3000"
+	} else {
+		port = os.Getenv("PORT")
+	}
+
 	http.ListenAndServe(":"+port, http.HandlerFunc(Handler))
 }

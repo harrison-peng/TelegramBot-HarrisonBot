@@ -59,3 +59,28 @@ type StockInfo struct {
 	Name string `bson:"name"`
 	Type string `bson:"type"`
 }
+
+// ETFNetWorth is the object of ETF ner worth API
+type ETFNetWorth struct {
+	ETFPublisherList []struct {
+		ETFList    []ETFNetWorthInfo `json:"msgArray"`
+		RefURL     string            `json:"refURL"`
+		Status     string            `json:"rtMessage"`
+		UserDelay  string            `json:"userDelay"`
+		ReturnCode string            `json:"rtCode"`
+	}
+}
+
+// ETFNetWorthInfo is the info object of ETFNetWorth
+type ETFNetWorthInfo struct {
+	StockID           string  `json:"a"`
+	Name              string  `json:"b"`
+	Circulation       int     `json:"c"`
+	CirculationDiff   int     `json:"d"`
+	CurrentPrice      float32 `json:"e"`
+	NetWorth          float32 `json:"f"`
+	DisOrPre          float32 `json:"g"`
+	YesterdayNetWorth string  `jsson:"h"`
+	Date              string  `json:"i"`
+	Time              string  `json:"j"`
+}

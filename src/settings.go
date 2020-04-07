@@ -8,7 +8,7 @@ const (
 	// TWSEAPIURL is the api url of TWSE
 	TWSEAPIURL = "https://www.twse.com.tw/exchangeReport/"
 	// MISTWSEAPIURL is the api url of mis TWSE
-	MISTWSEAPIURL = "https://mis.twse.com.tw/stock/api/getStockInfo.jsp"
+	MISTWSEAPIURL = "https://mis.twse.com.tw/"
 )
 
 // Token is the token of the telegram bot

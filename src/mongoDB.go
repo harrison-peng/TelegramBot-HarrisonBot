@@ -12,6 +12,17 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
+// CheckUser is to check the user is existed in DB or not
+func CheckUser(userID string, firstName string, lastName string) error {
+	existed, _ := getUser(userID)
+	if !existed {
+		if _, err := insertUser(userID, firstName, lastName); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
 func connectDB() (mongo.Client, error) {
 	mongoDBURL := "mongodb://" + MongoDBUser + ":" + MongoDBPassword + "@" + MongoDBDomain + MongoDBName
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
@@ -34,26 +45,20 @@ func insertUser(userID string, firstName string, lastName string) (interface{}, 
 		return "", err
 	}
 	userCollection := client.Database(MongoDBName).Collection("User")
-
-	existed, _ := getUser(userID)
-	if !existed {
-		value := bson.M{
-			"_id":       userID,
-			"FirstName": firstName,
-			"LastName":  lastName,
-			"StockList": []string{},
-		}
-		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-		defer cancel()
-		res, err := userCollection.InsertOne(ctx, value)
-		if err != nil {
-			return "", err
-		}
-
-		return res.InsertedID, nil
+	value := bson.M{
+		"_id":       userID,
+		"FirstName": firstName,
+		"LastName":  lastName,
+		"StockList": []string{},
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+	res, err := userCollection.InsertOne(ctx, value)
+	if err != nil {
+		return "", err
 	}
 
-	return "", errors.New("ID Existed")
+	return res.InsertedID, nil
 }
 
 func getUser(userID string) (bool, User) {
