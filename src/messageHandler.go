@@ -24,12 +24,11 @@ func HandleCallbackData(callbackQuery CallbackQuery) error {
 		_, user := getUser(strconv.Itoa(callbackQuery.Message.Chat.ID))
 		if len(user.StockList) > 0 {
 			var button [][]InlineKeyboardButton
-			for _, stockID := range user.StockList {
-				_, stockInfo := getStockInfo(stockID)
-				callbackData := "/removeStock:" + stockInfo.ID
+			for _, stock := range user.StockList {
+				callbackData := "/removeStock:" + stock.StockID
 				button = append(button, []InlineKeyboardButton{
-					InlineKeyboardButton{
-						Text:         stockInfo.ID + " " + stockInfo.Name,
+					{
+						Text:         stock.StockID + " " + stock.Name,
 						CallbackData: &callbackData,
 					},
 				})
@@ -59,8 +58,8 @@ func HandleCallbackData(callbackQuery CallbackQuery) error {
 		existed, user := getUser(strconv.Itoa(callbackQuery.Message.Chat.ID))
 		if existed {
 			stockList := user.StockList
-			for _, stockID := range stockList {
-				info, _ := getStockPriceInfo(stockID)
+			for _, stock := range stockList {
+				info, _ := getStockPriceInfo(stock.StockID)
 				if err := sendStockInfoMessage(callbackQuery.Message.Chat.ID, info); err != nil {
 					return err
 				}
@@ -70,16 +69,25 @@ func HandleCallbackData(callbackQuery CallbackQuery) error {
 		existed, user := getUser(strconv.Itoa(callbackQuery.Message.Chat.ID))
 		if existed {
 			stockList := user.StockList
-			for _, stockID := range stockList {
-				report, err := getPERatioReport(stockID, time.Now().Format("20060102"))
+			for _, stock := range stockList {
+				report, err := getPERatioReport(stock.StockID, time.Now().Format("20060102"))
 				if err != nil {
 					return err
 				}
 
-				if err := sendStockPERMessage(callbackQuery.Message.Chat.ID, stockID, report); err != nil {
+				if err := sendStockPERMessage(callbackQuery.Message.Chat.ID, stock.StockID, report); err != nil {
 					return err
 				}
 			}
+		}
+	} else if strings.HasPrefix(callbackQuery.Data, "/getStockNews:") {
+		stockID := strings.Replace(strings.Split(callbackQuery.Data, "/getStockNews:")[1], " ", "", -1)
+		newsList, err := getTaiwanStockNews(stockID)
+		if err != nil {
+			return err
+		}
+		if err := sendNewsMessage(callbackQuery.Message.Chat.ID, newsList); err != nil {
+			return err
 		}
 	}
 	return nil
@@ -96,15 +104,15 @@ func HandleMessage(message Message) error {
 	session := getSession(strconv.Itoa(message.Chat.ID))
 	if session != "" {
 		if session == "addStock" {
-			existed, stockInfo := getStockInfo(message.Text)
+			existed, stock := getStockInfo(message.Text)
 			if existed {
-				if err := addStock(strconv.Itoa(message.Chat.ID), stockInfo.ID); err != nil {
+				if err := addStock(strconv.Itoa(message.Chat.ID), stock); err != nil {
 					return err
 				}
 				if err := updateSession(strconv.Itoa(message.Chat.ID), ""); err != nil {
 					return err
 				}
-				content := "Insert " + stockInfo.ID + " " + stockInfo.Name + " successed!"
+				content := "Insert " + stock.StockID + " " + stock.Name + " successed!"
 				if err := sendMessage(message.Chat.ID, content, "", ReplyMarkup{}); err != nil {
 					return err
 				}
@@ -114,15 +122,34 @@ func HandleMessage(message Message) error {
 				}
 			}
 		} else if session == "searchStock" {
-			existed, stockInfo := getStockInfo(message.Text)
+			existed, stock := getStockInfo(message.Text)
 			if existed {
-				info, err := getStockPriceInfo(stockInfo.ID)
-				if err != nil {
-					return err
-				}
+				// info, err := getStockPriceInfo(stock.StockID)
+				// if err != nil {
+				// 	return err
+				// }
 
-				if err := sendStockInfoMessage(message.Chat.ID, info); err != nil {
-					return err
+				// if err := sendStockInfoMessage(message.Chat.ID, info); err != nil {
+				// 	return err
+				// }
+
+				if stock.StockType == "Stock" {
+					newsList, err := getTaiwanStockNews(stock.StockID)
+					if err != nil {
+						return err
+					}
+
+					if err := sendNewsMessage(message.Chat.ID, newsList); err != nil {
+						return err
+					}
+
+					if err := updateSession(strconv.Itoa(message.Chat.ID), ""); err != nil {
+						return err
+					}
+				} else {
+					if err := sendMessage(message.Chat.ID, "Not support ETF, please type again:", "", ReplyMarkup{}); err != nil {
+						return err
+					}
 				}
 			} else {
 				if err := sendMessage(message.Chat.ID, "Wrong stock ID, please type again:", "", ReplyMarkup{}); err != nil {
@@ -147,7 +174,10 @@ func HandleMessage(message Message) error {
 				existed, user := getUser(userID)
 				if existed {
 					if len(user.StockList) > 0 {
-						if err := sendMyStockKeyboardMessage(message.Chat.ID); err != nil {
+						// if err := sendMyStockKeyboardMessage(message.Chat.ID); err != nil {
+						// 	return err
+						// }
+						if err := sendMyStoackNewsKeyboardMessage(message.Chat.ID); err != nil {
 							return err
 						}
 					} else {
@@ -185,11 +215,11 @@ func sendReplyKeyboardMessage(chatID int) error {
 	trueVal := true
 	replyMarkup := &ReplyMarkup{
 		Keyboard: &[][]ReplyKeyboardButton{
-			[]ReplyKeyboardButton{
-				ReplyKeyboardButton{
+			{
+				{
 					Text: "MyStocks",
 				},
-				ReplyKeyboardButton{
+				{
 					Text: "SearchStock",
 				},
 			},
@@ -209,14 +239,14 @@ func sendSettingKeyboardMessage(chatID int) error {
 	removeStockCallbackData := "/removeStockPage"
 	replyMarkup := &ReplyMarkup{
 		InlineKeyboard: &[][]InlineKeyboardButton{
-			[]InlineKeyboardButton{
-				InlineKeyboardButton{
+			{
+				{
 					Text:         "Add Stock To MyStocks",
 					CallbackData: &addStockCallbackData,
 				},
 			},
-			[]InlineKeyboardButton{
-				InlineKeyboardButton{
+			{
+				{
 					Text:         "Remove Stock From MyStocks",
 					CallbackData: &removeStockCallbackData,
 				},
@@ -235,14 +265,14 @@ func sendMyStockKeyboardMessage(chatID int) error {
 	perCallbackData := "/getMyStocksPER"
 	replyMarkup := &ReplyMarkup{
 		InlineKeyboard: &[][]InlineKeyboardButton{
-			[]InlineKeyboardButton{
-				InlineKeyboardButton{
+			{
+				{
 					Text:         "Price Information",
 					CallbackData: &priceCallbackData,
 				},
 			},
-			[]InlineKeyboardButton{
-				InlineKeyboardButton{
+			{
+				{
 					Text:         "PE Ratio & Others",
 					CallbackData: &perCallbackData,
 				},
@@ -253,6 +283,36 @@ func sendMyStockKeyboardMessage(chatID int) error {
 	if err := sendMessage(chatID, "Choose the information:", "", *replyMarkup); err != nil {
 		return err
 	}
+	return nil
+}
+
+func sendMyStoackNewsKeyboardMessage(chatID int) error {
+	existed, user := getUser(strconv.Itoa(chatID))
+	if existed {
+		var button [][]InlineKeyboardButton
+		stockList := user.StockList
+		for _, stock := range stockList {
+			if stock.StockType == "Stock" {
+				callbackData := "/getStockNews:" + stock.StockID
+				button = append(button, []InlineKeyboardButton{
+					{
+						Text:         stock.StockID + " " + stock.Name,
+						CallbackData: &callbackData,
+					},
+				})
+			}
+		}
+
+		replyMarkup := &ReplyMarkup{
+			InlineKeyboard: &button,
+		}
+
+		if err := sendMessage(chatID, "Choose a stock:", "", *replyMarkup); err != nil {
+			return err
+		}
+		return nil
+	}
+
 	return nil
 }
 
@@ -285,6 +345,19 @@ func sendStockPERMessage(chatID int, stockID string, report PERatioReport) error
 		return err
 	}
 
+	return nil
+}
+
+func sendNewsMessage(chatID int, newsList []News) error {
+	for _, news := range newsList {
+		var content bytes.Buffer
+		content.WriteString("*" + news.Title + "*\n")
+		content.WriteString(news.URL)
+
+		if err := sendMessage(chatID, content.String(), "Markdown", ReplyMarkup{}); err != nil {
+			return err
+		}
+	}
 	return nil
 }
 

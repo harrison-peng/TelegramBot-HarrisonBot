@@ -9,6 +9,10 @@ const (
 	TWSEAPIURL = "https://www.twse.com.tw/exchangeReport/"
 	// MISTWSEAPIURL is the api url of mis TWSE
 	MISTWSEAPIURL = "https://mis.twse.com.tw/"
+	// FINMINDURL is  the API url of FinMind
+	FINMINDURL = "http://api.finmindtrade.com/api/v2/data"
+	// TINYURL is the API url of TinyUrl
+	TINYURL = "http://tinyurl.com/api-create.php"
 )
 
 // Token is the token of the telegram bot

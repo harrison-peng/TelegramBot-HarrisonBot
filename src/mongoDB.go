@@ -114,8 +114,8 @@ func updateSession(userID string, session string) error {
 	return errors.New("No matched user")
 }
 
-func getStockInfo(stockID string) (bool, StockInfo) {
-	stockInfo := &StockInfo{}
+func getStockInfo(stockID string) (bool, Stock) {
+	stockInfo := &Stock{}
 	client, err := connectDB()
 	if err != nil {
 		return false, *stockInfo
@@ -133,7 +133,7 @@ func getStockInfo(stockID string) (bool, StockInfo) {
 	return true, *stockInfo
 }
 
-func addStock(userID string, stockID string) error {
+func addStock(userID string, stock Stock) error {
 	client, err := connectDB()
 	if err != nil {
 		return err
@@ -145,7 +145,12 @@ func addStock(userID string, stockID string) error {
 	}
 	update := bson.M{
 		"$push": bson.M{
-			"StockList": stockID,
+			"StockList": bson.M{
+				"_id":       stock.StockID,
+				"name":      stock.Name,
+				"type":      stock.Type,
+				"stockType": stock.StockType,
+			},
 		},
 	}
 
@@ -172,7 +177,9 @@ func removeStock(userID string, stockID string) error {
 	}
 	update := bson.M{
 		"$pull": bson.M{
-			"StockList": stockID,
+			"StockList": bson.M{
+				"_id": stockID,
+			},
 		},
 	}
 
@@ -185,37 +192,4 @@ func removeStock(userID string, stockID string) error {
 		return nil
 	}
 	return errors.New("No matched user")
-}
-
-func insertStockInfoToDB(infoList []StockInfo) error {
-	client, err := connectDB()
-	if err != nil {
-		return err
-	}
-	stockCollection := client.Database(MongoDBName).Collection("StockInfo")
-	var insertList []interface{}
-	for _, info := range infoList {
-		value := bson.M{
-			"_id":  info.ID,
-			"name": info.Name,
-			"type": info.Type,
-		}
-		insertList = append(insertList, value)
-	}
-
-	// ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	// defer cancel()
-	// res, err := stockCollection.InsertOne(ctx, value)
-	// if err != nil {
-	// 	return err
-	// }
-	// fmt.Println("Insert: ", res.InsertedID)
-
-	opts := options.InsertMany().SetOrdered(false)
-	res, err := stockCollection.InsertMany(context.TODO(), insertList, opts)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("inserted documents with ID %v\n", res.InsertedIDs)
-	return nil
 }
