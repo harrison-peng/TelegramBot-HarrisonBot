@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-// HandleCallbackData is
+// HandleCallbackData is the handler to handle callback data
 func HandleCallbackData(callbackQuery CallbackQuery) error {
 	if callbackQuery.Data == "/addStock" {
 		if err := updateSession(strconv.Itoa(callbackQuery.Message.Chat.ID), "addStock"); err != nil {
