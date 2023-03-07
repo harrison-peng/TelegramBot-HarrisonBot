@@ -6,11 +6,10 @@ github.com/andybalholm/cascadia
 # github.com/antchfx/htmlquery v1.2.2
 ## explicit
 github.com/antchfx/htmlquery
-# github.com/antchfx/xmlquery v1.2.3
+# github.com/antchfx/xmlquery v1.3.1
 ## explicit
 github.com/antchfx/xmlquery
-# github.com/antchfx/xpath v1.1.4
-## explicit
+# github.com/antchfx/xpath v1.1.10
 github.com/antchfx/xpath
 # github.com/aws/aws-sdk-go v1.34.28
 github.com/aws/aws-sdk-go/aws
@@ -48,7 +47,6 @@ github.com/gocolly/colly
 github.com/gocolly/colly/debug
 github.com/gocolly/colly/storage
 # github.com/golang/groupcache v0.0.0-20200121045136-8c9f03a8e57e
-## explicit
 github.com/golang/groupcache/lru
 # github.com/golang/protobuf v1.3.1
 github.com/golang/protobuf/proto
@@ -115,10 +113,10 @@ go.mongodb.org/mongo-driver/x/mongo/driver/session
 go.mongodb.org/mongo-driver/x/mongo/driver/topology
 go.mongodb.org/mongo-driver/x/mongo/driver/uuid
 go.mongodb.org/mongo-driver/x/mongo/driver/wiremessage
-# golang.org/x/crypto v0.0.0-20200302210943-78000ba7a073
+# golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9
 golang.org/x/crypto/ocsp
 golang.org/x/crypto/pbkdf2
-# golang.org/x/net v0.0.0-20200202094626-16171245cfb2
+# golang.org/x/net v0.0.0-20200813134508-3edf25e44fcc
 golang.org/x/net/context
 golang.org/x/net/html
 golang.org/x/net/html/atom
